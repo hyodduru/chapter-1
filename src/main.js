@@ -1,22 +1,5 @@
-const Header = () => `
-  <header class="bg-blue-600 text-white p-4 sticky top-0">
-    <h1 class="text-2xl font-bold">항해플러스</h1>
-  </header>
-
-  <nav class="bg-white shadow-md p-2 sticky top-14">
-    <ul class="flex justify-around">
-      <li><a href="/" class="text-blue-600">홈</a></li>
-      <li><a href="/profile" class="text-gray-600">프로필</a></li>
-      <li><a href="/login" class="text-gray-600">로그인</a></li>
-    </ul>
-  </nav>
-`;
-
-const Footer = () => `
-  <footer class="bg-gray-200 p-4 text-center">
-    <p>&copy; 2024 항해플러스. All rights reserved.</p>
-  </footer>
-`;
+import { AuthStore } from "./auth";
+import { Header, Footer } from "./components";
 
 const MainPage = () => `
   <div class="bg-gray-100 min-h-screen flex justify-center">
@@ -84,9 +67,9 @@ const LoginPage = () => `
   <main class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
       <h1 class="text-2xl font-bold text-center text-blue-600 mb-8">항해플러스</h1>
-      <form>
+      <form id="login-form">
         <div class="mb-4">
-          <input type="text" placeholder="사용자 이름" class="w-full p-2 border rounded">
+          <input id="username" type="text" placeholder="사용자 이름" class="w-full p-2 border rounded">
         </div>
         <div class="mb-6">
           <input type="password" placeholder="비밀번호" class="w-full p-2 border rounded">
@@ -139,8 +122,6 @@ const ProfilePage = () => `
   </div>
 `;
 
-const isLoggedIn = false;
-
 function createRouter(rootElement) {
   const routes = {};
   let currentPath = window.location.pathname;
@@ -184,12 +165,48 @@ function createRouter(rootElement) {
   };
 }
 
+function bindLoginEvent(container, router) {
+  const loginForm = container.querySelector("#login-form");
+  if (!loginForm) return;
+
+  loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const username = loginForm.querySelector("input[type='text']").value.trim();
+
+    if (!username) return;
+
+    const userData = {
+      username,
+      email: "",
+      bio: "",
+    };
+
+    AuthStore.login(userData);
+    router.navigateTo("/");
+  });
+}
+
+function handleNavigationClick(router) {
+  document.addEventListener("click", (e) => {
+    if (e.target.tagName === "A") {
+      const href = e.target.getAttribute("href");
+      if (href && href.startsWith("/")) {
+        e.preventDefault();
+
+        if (e.target.id === "logout") {
+          AuthStore.logout();
+        }
+
+        router.navigateTo(href);
+      }
+    }
+  });
+}
+
 function initializeApp() {
   const rootElement = document.getElementById("root");
-
-  if (!rootElement) {
-    return null;
-  }
+  if (!rootElement) return;
 
   const router = createRouter(rootElement);
 
@@ -199,11 +216,12 @@ function initializeApp() {
 
   router.addRoute("/login", (container) => {
     container.innerHTML = LoginPage();
+    bindLoginEvent(container, router);
   });
 
   router.addRoute("/profile", (container) => {
-    if (!isLoggedIn) {
-      container.innerHTML = LoginPage();
+    if (!AuthStore.isLoggedIn()) {
+      router.navigateTo("/login");
       return;
     }
     container.innerHTML = ProfilePage();
@@ -213,19 +231,8 @@ function initializeApp() {
     container.innerHTML = ErrorPage();
   });
 
-  document.addEventListener("click", (e) => {
-    if (e.target.tagName === "A") {
-      const href = e.target.getAttribute("href");
-      if (href && href.startsWith("/")) {
-        e.preventDefault();
-        router.navigateTo(href);
-      }
-    }
-  });
-
+  handleNavigationClick(router);
   router.start();
-
-  return router;
 }
 
 initializeApp();
