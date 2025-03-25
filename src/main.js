@@ -87,11 +87,11 @@ const LoginPage = () => `
   </main>
 `;
 
-const ProfilePage = () => `
+const ProfilePage = (path) => `
   <div id="root">
     <div class="bg-gray-100 min-h-screen flex justify-center">
       <div class="max-w-md w-full">
-        ${Header()}
+        ${Header(path)}
         <main class="p-4">
           <div class="bg-white p-8 rounded-lg shadow-md">
             <h2 class="text-2xl font-bold text-center text-blue-600 mb-8">
@@ -132,8 +132,6 @@ function createRouter(rootElement) {
       handler(rootElement);
     } else if (routes["404"]) {
       routes["404"](rootElement);
-    } else {
-      rootElement.innerHTML = "페이지를 찾을 수 없습니다: " + path;
     }
   }
 
@@ -235,6 +233,11 @@ function initializeApp() {
 
   const router = createRouter(rootElement);
 
+  AuthStore.init();
+  AuthStore.subscribe(() => {
+    router.navigateTo(window.location.pathname);
+  });
+
   router.addRoute("/", (container) => {
     container.innerHTML = MainPage();
   });
@@ -249,7 +252,7 @@ function initializeApp() {
       router.navigateTo("/login");
       return;
     }
-    container.innerHTML = ProfilePage();
+    container.innerHTML = ProfilePage("/profile");
     bindProfileEvent(container);
   });
 

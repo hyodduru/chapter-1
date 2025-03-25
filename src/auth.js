@@ -1,6 +1,44 @@
 export const AuthStore = {
-  isLoggedIn: () => !!localStorage.getItem("user"),
-  setUser: (user) => localStorage.setItem("user", JSON.stringify(user)),
-  logout: () => localStorage.removeItem("user"),
-  getUser: () => JSON.parse(localStorage.getItem("user")),
+  user: null,
+  listeners: new Set(),
+
+  init() {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      this.user = JSON.parse(savedUser);
+    }
+  },
+
+  setUser(newUser) {
+    this.user = newUser;
+    localStorage.setItem("user", JSON.stringify(newUser));
+
+    this.notify();
+  },
+
+  logout() {
+    this.user = null;
+    localStorage.removeItem("user");
+
+    this.notify();
+  },
+
+  getUser() {
+    return this.user;
+  },
+
+  isLoggedIn() {
+    return !!this.user;
+  },
+
+  subscribe(cb) {
+    this.listeners.add(cb);
+    return () => this.listeners.delete(cb);
+  },
+
+  notify() {
+    for (const cb of this.listeners) {
+      cb(this.user);
+    }
+  },
 };
