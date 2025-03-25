@@ -97,18 +97,18 @@ const ProfilePage = () => `
             <h2 class="text-2xl font-bold text-center text-blue-600 mb-8">
               내 프로필
             </h2>
-            <form>
+            <form id="profile-form">
               <div class="mb-4">
                 <label for="username" class="block text-gray-700 text-sm font-bold mb-2">사용자 이름</label>
-                <input type="text" id="username" name="username" value="홍길동" class="w-full p-2 border rounded" />
+                <input type="text" id="username" name="username" value="${AuthStore.getUser().username}" class="w-full p-2 border rounded" />
               </div>
               <div class="mb-4">
                 <label for="email" class="block text-gray-700 text-sm font-bold mb-2">이메일</label>
-                <input type="email" id="email" name="email" value="hong@example.com" class="w-full p-2 border rounded" />
+                <input type="email" id="email" name="email" value="${AuthStore.getUser().email}" class="w-full p-2 border rounded" />
               </div>
               <div class="mb-6">
                 <label for="bio" class="block text-gray-700 text-sm font-bold mb-2">자기소개</label>
-                <textarea id="bio" name="bio" rows="4" class="w-full p-2 border rounded">안녕하세요, 항해플러스에서 열심히 공부하고 있는 홍길동입니다.</textarea>
+                <textarea id="bio" name="bio" rows="4" class="w-full p-2 border rounded">${AuthStore.getUser().bio}</textarea>
               </div>
               <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded font-bold">
                 프로필 업데이트
@@ -172,7 +172,7 @@ function bindLoginEvent(container, router) {
   loginForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const username = loginForm.querySelector("input[type='text']").value.trim();
+    const username = loginForm.querySelector("input[type='text']").value;
 
     if (!username) return;
 
@@ -182,8 +182,33 @@ function bindLoginEvent(container, router) {
       bio: "",
     };
 
-    AuthStore.login(userData);
+    AuthStore.setUser(userData);
     router.navigateTo("/");
+  });
+}
+
+function bindProfileEvent(container) {
+  const profileForm = container.querySelector("#profile-form");
+  if (!profileForm) return;
+
+  profileForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const username = profileForm.querySelector("#username").value;
+    const email = profileForm.querySelector("#email").value;
+    const bio = profileForm.querySelector("#bio").value;
+
+    if (!username) return;
+
+    const userData = {
+      username,
+      email,
+      bio,
+    };
+
+    AuthStore.setUser(userData);
+
+    alert("프로필이 업데이트되었습니다.");
   });
 }
 
@@ -225,6 +250,7 @@ function initializeApp() {
       return;
     }
     container.innerHTML = ProfilePage();
+    bindProfileEvent(container);
   });
 
   router.addRoute("404", (container) => {
