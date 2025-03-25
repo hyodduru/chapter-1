@@ -1,6 +1,6 @@
-import { AuthStore } from "./auth";
+import { AuthStore } from "../auth/AuthStore";
 
-export function Header(currentPath = "/") {
+function Header(currentPath = "/") {
   const isLoggedIn = AuthStore.isLoggedIn();
   const isActive = (path) =>
     currentPath === path ? "text-blue-600" : "text-gray-600";
@@ -25,10 +25,4 @@ export function Header(currentPath = "/") {
     `;
 }
 
-export function Footer() {
-  return `
-      <footer class="bg-gray-200 p-4 text-center">
-        <p>&copy; 2024 항해플러스. All rights reserved.</p>
-      </footer>
-    `;
-}
+export default Header;
