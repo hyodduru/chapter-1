@@ -1,6 +1,10 @@
 export function createRouter(rootElement) {
   const routes = {};
-  let currentPath = window.location.pathname;
+  let currentPath = getHashPath();
+
+  function getHashPath() {
+    return window.location.hash.replace(/^#/, "") || "/";
+  }
 
   function handleRoute(path) {
     const handler = routes[path];
@@ -11,15 +15,13 @@ export function createRouter(rootElement) {
     }
   }
 
-  function handlePopState() {
-    currentPath = window.location.pathname;
+  function handleHashChange() {
+    currentPath = getHashPath();
     handleRoute(currentPath);
   }
 
   function navigateTo(path) {
-    history.pushState(null, "", path);
-    currentPath = path;
-    handleRoute(path);
+    window.location.hash = path;
   }
 
   function addRoute(path, handler) {
@@ -30,7 +32,7 @@ export function createRouter(rootElement) {
     handleRoute(currentPath);
   }
 
-  window.addEventListener("popstate", handlePopState);
+  window.addEventListener("hashchange", handleHashChange);
 
   return {
     addRoute,

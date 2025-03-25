@@ -77,7 +77,8 @@ function initializeApp() {
 
   AuthStore.init();
   AuthStore.subscribe(() => {
-    router.navigateTo(window.location.pathname);
+    const path = window.location.hash.replace(/^#/, "") || "/";
+    router.navigateTo(path);
   });
 
   router.addRoute("/", (container) => {
