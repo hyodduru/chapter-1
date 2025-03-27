@@ -27,7 +27,7 @@
       <nav class="bg-white shadow-md p-2 sticky top-14">
         <ul class="flex justify-around">
           <li><a href="${i}/" class="${r("/")}">홈</a></li>
-          ${t&&`<li><a href="${i}/profile" class=${r("/profile")}>프로필</a></li>`}
+          ${t?`<li><a href="${i}/profile" class=${r("/profile")}>프로필</a></li>`:""}
           <li>
             ${t?`<a id="logout" href="${i}/login" class="text-gray-600">로그아웃</a>`:`<a href="${i}/login" class="text-gray-600">로그인</a>`}
           </li>
