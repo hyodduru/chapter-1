@@ -1,9 +1,9 @@
-import { AuthStore } from "../auth/AuthStore";
+import { AuthStore } from "../../features/auth/AuthStore";
 
 function Header(currentPath = "/") {
   const isLoggedIn = AuthStore.isLoggedIn();
   const isActive = (path) =>
-    currentPath === path ? "text-blue-600" : "text-gray-600";
+    currentPath === path ? "text-blue-600 font-bold" : "text-gray-600";
 
   return `
       <header class="bg-blue-600 text-white p-4 sticky top-0">

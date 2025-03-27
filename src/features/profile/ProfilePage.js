@@ -1,5 +1,5 @@
-import Header from "../components/Footer";
-import Footer from "../components/Header";
+import Header from "../../shared/components/Header";
+import Footer from "../../shared/components/Footer";
 import { AuthStore } from "../auth/AuthStore";
 
 const ProfilePage = (path) => `
