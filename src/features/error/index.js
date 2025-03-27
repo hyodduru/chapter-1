@@ -1,3 +1,3 @@
-import ErrorPage from "./ErrorPage";
+import NotFoundPage from "./NotFoundPage";
 
-export default ErrorPage;
+export default NotFoundPage;

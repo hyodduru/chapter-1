@@ -1,7 +1,7 @@
 import LoginPage, { bindLoginEvent, authStore } from "../../features/auth";
 import ProfilePage, { bindProfileEvent } from "../../features/profile";
 import MainPage from "../../features/main";
-import ErrorPage from "../../features/error";
+import NotFoundPage from "../../features/error";
 import { BASE_URL } from "../../shared/constants/constants";
 
 export const routes = [
@@ -32,7 +32,7 @@ export const routes = [
   {
     path: "404",
     render: (container) => {
-      container.innerHTML = ErrorPage();
+      container.innerHTML = NotFoundPage();
     },
   },
 ];
