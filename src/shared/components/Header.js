@@ -13,7 +13,11 @@ function Header(currentPath = "/") {
       <nav class="bg-white shadow-md p-2 sticky top-14">
         <ul class="flex justify-around">
           <li><a href="${BASE_URL}/" class="${isActive("/")}">홈</a></li>
-          <li><a href="${BASE_URL}/profile" class=${isActive("/profile")}>프로필</a></li>
+          ${
+            isLoggedIn
+              ? `<li><a href="${BASE_URL}/profile" class=${isActive("/profile")}>프로필</a></li>`
+              : ""
+          }
           <li>
             ${
               isLoggedIn
