@@ -1,25 +1,6 @@
-import LoginPage, { AuthStore, bindLoginEvent } from "../features/auth";
-import ErrorPage from "../features/error/ErrorPage";
-import MainPage from "../features/main";
-import ProfilePage, { bindProfileEvent } from "../features/profile";
-import { createRouter } from "./routes";
-
-function handleNavigationClick(router) {
-  document.addEventListener("click", (e) => {
-    if (e.target.tagName === "A") {
-      const href = e.target.getAttribute("href");
-      if (href && href.startsWith("/")) {
-        e.preventDefault();
-
-        if (e.target.id === "logout") {
-          AuthStore.logout();
-        }
-
-        router.navigateTo(href);
-      }
-    }
-  });
-}
+import { authStore } from "../features/auth";
+import { setupNavigationClickEvents } from "./navigationEvents";
+import { createRouter, setupRoutes } from "./routes";
 
 export function initializeApp(isHashMode = false) {
   const rootElement = document.getElementById("root");
@@ -27,37 +8,12 @@ export function initializeApp(isHashMode = false) {
 
   const router = createRouter(rootElement, { isHashMode });
 
-  AuthStore.init();
-  AuthStore.subscribe(() => {
+  authStore.init();
+  authStore.subscribe(() => {
     router.start();
   });
-  router.addRoute("/", (container) => {
-    container.innerHTML = MainPage();
-  });
 
-  router.addRoute("/login", (container) => {
-    if (AuthStore.isLoggedIn()) {
-      router.navigateTo("/");
-      return;
-    }
-
-    container.innerHTML = LoginPage();
-    bindLoginEvent(container, router);
-  });
-
-  router.addRoute("/profile", (container) => {
-    if (!AuthStore.isLoggedIn()) {
-      router.navigateTo("/login");
-      return;
-    }
-    container.innerHTML = ProfilePage("/profile");
-    bindProfileEvent(container);
-  });
-
-  router.addRoute("404", (container) => {
-    container.innerHTML = ErrorPage();
-  });
-
-  handleNavigationClick(router);
+  setupRoutes(router);
+  setupNavigationClickEvents(router);
   router.start();
 }

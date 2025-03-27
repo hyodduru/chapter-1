@@ -1,4 +1,4 @@
-import { AuthStore } from "../auth";
+import { authStore } from "../auth";
 
 export function bindProfileEvent(container) {
   const profileForm = container.querySelector("#profile-form");
@@ -19,7 +19,7 @@ export function bindProfileEvent(container) {
       bio,
     };
 
-    AuthStore.setUser(userData);
+    authStore.setUser(userData);
 
     alert("프로필이 업데이트되었습니다.");
   });

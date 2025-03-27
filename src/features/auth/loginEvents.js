@@ -1,4 +1,4 @@
-import { AuthStore } from "./AuthStore";
+import { authStore } from "./auth";
 
 export function bindLoginEvent(container, router) {
   const loginForm = container.querySelector("#login-form");
@@ -17,7 +17,7 @@ export function bindLoginEvent(container, router) {
       bio: "",
     };
 
-    AuthStore.setUser(userData);
+    authStore.setUser(userData);
     router.navigateTo("/");
   });
 }

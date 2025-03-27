@@ -1,5 +1,4 @@
-import Header from "../../shared/components/Header";
-import Footer from "../../shared/components/Footer";
+import { Header, Footer } from "../../shared/components";
 
 const MainPage = () => `
   <div class="bg-gray-100 min-h-screen flex justify-center">

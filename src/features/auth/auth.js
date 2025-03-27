@@ -1,4 +1,4 @@
-export const AuthStore = {
+export const authStore = {
   user: null,
   listeners: new Set(),
 

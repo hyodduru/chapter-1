@@ -1,6 +1,6 @@
 import LoginPage from "./LoginPage";
-import { AuthStore } from "./AuthStore";
-import { bindLoginEvent } from "./LoginEvents";
+import { authStore } from "./auth";
+import { bindLoginEvent } from "./loginEvents";
 
 export default LoginPage;
-export { AuthStore, bindLoginEvent };
+export { authStore, bindLoginEvent };
