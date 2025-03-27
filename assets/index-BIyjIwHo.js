@@ -1,4 +1,4 @@
-(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))o(s);new MutationObserver(s=>{for(const n of s)if(n.type==="childList")for(const l of n.addedNodes)l.tagName==="LINK"&&l.rel==="modulepreload"&&o(l)}).observe(document,{childList:!0,subtree:!0});function r(s){const n={};return s.integrity&&(n.integrity=s.integrity),s.referrerPolicy&&(n.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?n.credentials="include":s.crossOrigin==="anonymous"?n.credentials="omit":n.credentials="same-origin",n}function o(s){if(s.ep)return;s.ep=!0;const n=r(s);fetch(s.href,n)}})();const g=()=>`
+(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))o(s);new MutationObserver(s=>{for(const n of s)if(n.type==="childList")for(const a of n.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&o(a)}).observe(document,{childList:!0,subtree:!0});function r(s){const n={};return s.integrity&&(n.integrity=s.integrity),s.referrerPolicy&&(n.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?n.credentials="include":s.crossOrigin==="anonymous"?n.credentials="omit":n.credentials="same-origin",n}function o(s){if(s.ep)return;s.ep=!0;const n=r(s);fetch(s.href,n)}})();const v=()=>`
   <main class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
       <h1 class="text-2xl font-bold text-center text-blue-600 mb-8">항해플러스</h1>
@@ -20,7 +20,7 @@
       </div>
     </div>
   </main>
-`,i={user:null,listeners:new Set,init(){const e=localStorage.getItem("user");e&&(this.user=JSON.parse(e))},setUser(e){this.user=e,localStorage.setItem("user",JSON.stringify(e)),this.notify()},logout(){this.user=null,localStorage.removeItem("user"),this.notify()},getUser(){return this.user},isLoggedIn(){return!!this.user},subscribe(e){return this.listeners.add(e),()=>this.listeners.delete(e)},notify(){for(const e of this.listeners)e(this.user)}};function h(e,t){const r=e.querySelector("#login-form");r&&r.addEventListener("submit",o=>{o.preventDefault();const s=r.querySelector("input[type='text']").value;if(!s)return;const n={username:s,email:"",bio:""};i.setUser(n),t.navigateTo("/")})}function v(e){document.addEventListener("click",t=>{if(t.target.tagName==="A"){const r=t.target.getAttribute("href");r&&r.startsWith("/")&&(t.preventDefault(),t.target.id==="logout"&&i.logout(),e.navigateTo(r))}})}function c(e="/"){const t=i.isLoggedIn(),r=o=>e===o?"text-blue-600 font-bold":"text-gray-600";return`
+`,i={user:null,listeners:new Set,init(){const e=localStorage.getItem("user");e&&(this.user=JSON.parse(e))},setUser(e){this.user=e,localStorage.setItem("user",JSON.stringify(e)),this.notify()},logout(){this.user=null,localStorage.removeItem("user"),this.notify()},getUser(){return this.user},isLoggedIn(){return!!this.user},subscribe(e){return this.listeners.add(e),()=>this.listeners.delete(e)},notify(){for(const e of this.listeners)e(this.user)}};function x(e,t){const r=e.querySelector("#login-form");r&&r.addEventListener("submit",o=>{o.preventDefault();const s=r.querySelector("input[type='text']").value;if(!s)return;const n={username:s,email:"",bio:""};i.setUser(n),t.navigateTo("/")})}function y(e){document.addEventListener("click",t=>{if(t.target.tagName==="A"){const r=t.target.getAttribute("href");r&&r.startsWith("/")&&(t.preventDefault(),t.target.id==="logout"&&i.logout(),e.navigateTo(r))}})}function f(e="/"){const t=i.isLoggedIn(),r=o=>e===o?"text-blue-600 font-bold":"text-gray-600";return`
       <header class="bg-blue-600 text-white p-4 sticky top-0">
         <h1 class="text-2xl font-bold">항해플러스</h1>
       </header>
@@ -33,15 +33,15 @@
           </li>
         </ul>
       </nav>
-    `}function f(){return`
+    `}function m(){return`
         <footer class="bg-gray-200 p-4 text-center">
           <p>&copy; 2024 항해플러스. All rights reserved.</p>
         </footer>
-      `}const x=e=>`
+      `}const w=e=>`
   <div id="root">
     <div class="bg-gray-100 min-h-screen flex justify-center">
       <div class="max-w-md w-full">
-        ${c(e)}
+        ${f(e)}
         <main class="p-4">
           <div class="bg-white p-8 rounded-lg shadow-md">
             <h2 class="text-2xl font-bold text-center text-blue-600 mb-8">
@@ -66,14 +66,14 @@
             </form>
           </div>
         </main>
-        ${f()}
+        ${m()}
       </div>
     </div>
   </div>
-`;function y(e){const t=e.querySelector("#profile-form");t&&t.addEventListener("submit",r=>{r.preventDefault();const o=t.querySelector("#username").value,s=t.querySelector("#email").value,n=t.querySelector("#bio").value;if(!o)return;const l={username:o,email:s,bio:n};i.setUser(l),alert("프로필이 업데이트되었습니다.")})}const w=()=>`
+`;function L(e){const t=e.querySelector("#profile-form");t&&t.addEventListener("submit",r=>{r.preventDefault();const o=t.querySelector("#username").value,s=t.querySelector("#email").value,n=t.querySelector("#bio").value;if(!o)return;const a={username:o,email:s,bio:n};i.setUser(a),alert("프로필이 업데이트되었습니다.")})}const P=()=>`
   <div class="bg-gray-100 min-h-screen flex justify-center">
     <div class="max-w-md w-full">
-      ${c()}
+      ${f()}
       <main class="p-4">
         <div class="mb-4 bg-white rounded-lg shadow p-4">
           <textarea class="w-full p-2 border rounded" placeholder="무슨 생각을 하고 계신가요?"></textarea>
@@ -100,10 +100,10 @@
           `}).join("")}
         </div>
       </main>
-      ${f()}
+      ${m()}
     </div>
   </div>
-`,L=()=>`
+`,S=()=>`
   <main class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full text-center" style="max-width: 480px">
       <h1 class="text-2xl font-bold text-blue-600 mb-4">항해플러스</h1>
@@ -117,4 +117,4 @@
       </a>
     </div>
   </main>
-`,u=()=>"/front_5th_chapter1-1/",S=[{path:u()+"/",render:e=>{e.innerHTML=w()}},{path:u()+"/login",guard:()=>!i.isLoggedIn(),redirect:"/",render:(e,t)=>{e.innerHTML=g(),h(e,t)}},{path:u()+"/profile",guard:()=>i.isLoggedIn(),redirect:"/login",render:e=>{e.innerHTML=x("/profile"),y(e)}},{path:u()+"404",render:e=>{e.innerHTML=L()}}];function $(e){S.forEach(({path:t,guard:r,redirect:o,render:s})=>{e.addRoute(t,n=>{if(r&&!r()){e.navigateTo(o);return}s(n,e)})})}function E(e,{isHashMode:t=!1}={}){const r={};let o="";function s(){return t?window.location.hash.replace(/^#/,"")||"/":window.location.pathname||"/"}function n(a){const d=r[a];d?d(e):r[404]&&r[404](e)}function l(){o=s(),n(o)}function m(a){t?window.location.hash=a:(history.pushState({},"",a),l())}function b(a,d){r[a]=d}function p(){o=s(),n(o),t&&window.addEventListener("hashchange",l),window.addEventListener("popstate",l)}return{addRoute:b,navigateTo:m,start:p,getCurrentPath:s}}function P(e=!1){const t=document.getElementById("root");if(!t)return;const r=E(t,{isHashMode:e});console.log(r),i.init(),i.subscribe(()=>{r.start()}),$(r),v(r),r.start()}P();
+`,c=()=>"/front_5th_chapter1-1/",$=[{path:c()+"/",render:e=>{e.innerHTML=P()}},{path:c()+"/login",guard:()=>!i.isLoggedIn(),redirect:"/",render:(e,t)=>{e.innerHTML=v(),x(e,t)}},{path:c()+"/profile",guard:()=>i.isLoggedIn(),redirect:"/login",render:e=>{e.innerHTML=w("/profile"),L(e)}},{path:c()+"404",render:e=>{e.innerHTML=S()}}];function E(e){$.forEach(({path:t,guard:r,redirect:o,render:s})=>{e.addRoute(t,n=>{if(r&&!r()){e.navigateTo(o);return}s(n,e)})})}const u=()=>"/front_5th_chapter1-1/";function I(e,{isHashMode:t=!1}={}){const r={};let o="";function s(){const d=u();let l="";return t?l=window.location.hash.replace(/^#/,"").replace(d,"")||"/":l=window.location.pathname.replace(d,"")||"/",l}function n(d){const l=r[d];l?l(e):r[404]&&r[404](e)}function a(){o=s(),n(o)}function b(d){const l=u()+d;t?window.location.hash=l:(history.pushState({},"",l),a())}function p(d,l){const h=u()+d;r[h]=l}function g(){o=s(),n(o),t&&window.addEventListener("hashchange",a),window.addEventListener("popstate",a)}return{addRoute:p,navigateTo:b,start:g,getCurrentPath:s}}function U(e=!1){const t=document.getElementById("root");if(!t)return;const r=I(t,{isHashMode:e});console.log(r),i.init(),i.subscribe(()=>{r.start()}),E(r),y(r),r.start()}U();
