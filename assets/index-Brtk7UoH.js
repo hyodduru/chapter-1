@@ -1,4 +1,4 @@
-(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))o(s);new MutationObserver(s=>{for(const n of s)if(n.type==="childList")for(const l of n.addedNodes)l.tagName==="LINK"&&l.rel==="modulepreload"&&o(l)}).observe(document,{childList:!0,subtree:!0});function r(s){const n={};return s.integrity&&(n.integrity=s.integrity),s.referrerPolicy&&(n.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?n.credentials="include":s.crossOrigin==="anonymous"?n.credentials="omit":n.credentials="same-origin",n}function o(s){if(s.ep)return;s.ep=!0;const n=r(s);fetch(s.href,n)}})();const h=()=>`
+(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))o(s);new MutationObserver(s=>{for(const n of s)if(n.type==="childList")for(const a of n.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&o(a)}).observe(document,{childList:!0,subtree:!0});function r(s){const n={};return s.integrity&&(n.integrity=s.integrity),s.referrerPolicy&&(n.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?n.credentials="include":s.crossOrigin==="anonymous"?n.credentials="omit":n.credentials="same-origin",n}function o(s){if(s.ep)return;s.ep=!0;const n=r(s);fetch(s.href,n)}})();const v=()=>`
   <main class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
       <h1 class="text-2xl font-bold text-center text-blue-600 mb-8">항해플러스</h1>
@@ -20,7 +20,7 @@
       </div>
     </div>
   </main>
-`,i={user:null,listeners:new Set,init(){const e=localStorage.getItem("user");e&&(this.user=JSON.parse(e))},setUser(e){this.user=e,localStorage.setItem("user",JSON.stringify(e)),this.notify()},logout(){this.user=null,localStorage.removeItem("user"),this.notify()},getUser(){return this.user},isLoggedIn(){return!!this.user},subscribe(e){return this.listeners.add(e),()=>this.listeners.delete(e)},notify(){for(const e of this.listeners)e(this.user)}};function v(e,t){const r=e.querySelector("#login-form");r&&r.addEventListener("submit",o=>{o.preventDefault();const s=r.querySelector("input[type='text']").value;if(!s)return;const n={username:s,email:"",bio:""};i.setUser(n),t.navigateTo("/")})}function x(e){document.addEventListener("click",t=>{if(t.target.tagName==="A"){const r=t.target.getAttribute("href");r&&r.startsWith("/")&&(t.preventDefault(),t.target.id==="logout"&&i.logout(),e.navigateTo(r))}})}function f(e="/"){const t=i.isLoggedIn(),r=o=>e===o?"text-blue-600 font-bold":"text-gray-600";return`
+`,l={user:null,listeners:new Set,init(){const e=localStorage.getItem("user");e&&(this.user=JSON.parse(e))},setUser(e){this.user=e,localStorage.setItem("user",JSON.stringify(e)),this.notify()},logout(){this.user=null,localStorage.removeItem("user"),this.notify()},getUser(){return this.user},isLoggedIn(){return!!this.user},subscribe(e){return this.listeners.add(e),()=>this.listeners.delete(e)},notify(){for(const e of this.listeners)e(this.user)}};function x(e,t){const r=e.querySelector("#login-form");r&&r.addEventListener("submit",o=>{o.preventDefault();const s=r.querySelector("input[type='text']").value;if(!s)return;const n={username:s,email:"",bio:""};l.setUser(n),t.navigateTo("/")})}function y(e){document.addEventListener("click",t=>{if(t.target.tagName==="A"){const r=t.target.getAttribute("href");r&&r.startsWith("/")&&(t.preventDefault(),t.target.id==="logout"&&l.logout(),e.navigateTo(r))}})}function f(e="/"){const t=l.isLoggedIn(),r=o=>e===o?"text-blue-600 font-bold":"text-gray-600";return`
       <header class="bg-blue-600 text-white p-4 sticky top-0">
         <h1 class="text-2xl font-bold">항해플러스</h1>
       </header>
@@ -37,7 +37,7 @@
         <footer class="bg-gray-200 p-4 text-center">
           <p>&copy; 2024 항해플러스. All rights reserved.</p>
         </footer>
-      `}const y=e=>`
+      `}const w=e=>`
   <div id="root">
     <div class="bg-gray-100 min-h-screen flex justify-center">
       <div class="max-w-md w-full">
@@ -50,15 +50,15 @@
             <form id="profile-form">
               <div class="mb-4">
                 <label for="username" class="block text-gray-700 text-sm font-bold mb-2">사용자 이름</label>
-                <input type="text" id="username" name="username" value="${i.getUser().username}" class="w-full p-2 border rounded" />
+                <input type="text" id="username" name="username" value="${l.getUser().username}" class="w-full p-2 border rounded" />
               </div>
               <div class="mb-4">
                 <label for="email" class="block text-gray-700 text-sm font-bold mb-2">이메일</label>
-                <input type="email" id="email" name="email" value="${i.getUser().email}" class="w-full p-2 border rounded" />
+                <input type="email" id="email" name="email" value="${l.getUser().email}" class="w-full p-2 border rounded" />
               </div>
               <div class="mb-6">
                 <label for="bio" class="block text-gray-700 text-sm font-bold mb-2">자기소개</label>
-                <textarea id="bio" name="bio" rows="4" class="w-full p-2 border rounded">${i.getUser().bio}</textarea>
+                <textarea id="bio" name="bio" rows="4" class="w-full p-2 border rounded">${l.getUser().bio}</textarea>
               </div>
               <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded font-bold">
                 프로필 업데이트
@@ -70,7 +70,7 @@
       </div>
     </div>
   </div>
-`;function w(e){const t=e.querySelector("#profile-form");t&&t.addEventListener("submit",r=>{r.preventDefault();const o=t.querySelector("#username").value,s=t.querySelector("#email").value,n=t.querySelector("#bio").value;if(!o)return;const l={username:o,email:s,bio:n};i.setUser(l),alert("프로필이 업데이트되었습니다.")})}const L=()=>`
+`;function L(e){const t=e.querySelector("#profile-form");t&&t.addEventListener("submit",r=>{r.preventDefault();const o=t.querySelector("#username").value,s=t.querySelector("#email").value,n=t.querySelector("#bio").value;if(!o)return;const a={username:o,email:s,bio:n};l.setUser(a),alert("프로필이 업데이트되었습니다.")})}const P=()=>`
   <div class="bg-gray-100 min-h-screen flex justify-center">
     <div class="max-w-md w-full">
       ${f()}
@@ -117,4 +117,4 @@
       </a>
     </div>
   </main>
-`,c=()=>"/front_5th_chapter1-1/",$=[{path:c()+"/",render:e=>{e.innerHTML=L()}},{path:c()+"/login",guard:()=>!i.isLoggedIn(),redirect:"/",render:(e,t)=>{e.innerHTML=h(),v(e,t)}},{path:c()+"/profile",guard:()=>i.isLoggedIn(),redirect:"/login",render:e=>{e.innerHTML=y("/profile"),w(e)}},{path:c()+"404",render:e=>{e.innerHTML=S()}}];function E(e){$.forEach(({path:t,guard:r,redirect:o,render:s})=>{e.addRoute(t,n=>{if(r&&!r()){e.navigateTo(o);return}s(n,e)})})}const u=()=>"/front_5th_chapter1-1/";function P(e,{isHashMode:t=!1}={}){const r={};let o="";function s(){const a=u();let d="";return t?d=window.location.hash.replace(/^#/,"")||"/":d=window.location.pathname.replace(a,"")||"/",d}function n(a){const d=r[a];d?d(e):r[404]&&r[404](e)}function l(){o=s(),n(o)}function b(a){t?window.location.hash=a:(history.pushState({},"",u()+a),l())}function p(a,d){r[u()+a]=d}function g(){o=s(),n(o),t&&window.addEventListener("hashchange",l),window.addEventListener("popstate",l)}return{addRoute:p,navigateTo:b,start:g,getCurrentPath:s}}function I(e=!1){const t=document.getElementById("root");if(!t)return;console.log("production");const r=P(t,{isHashMode:e});i.init(),i.subscribe(()=>{r.start()}),E(r),x(r),r.start()}I();
+`,c=()=>"/front_5th_chapter1-1/",$=[{path:c()+"/",render:e=>{e.innerHTML=P()}},{path:c()+"/login",guard:()=>!l.isLoggedIn(),redirect:"/",render:(e,t)=>{e.innerHTML=v(),x(e,t)}},{path:c()+"/profile",guard:()=>l.isLoggedIn(),redirect:"/login",render:e=>{e.innerHTML=w("/profile"),L(e)}},{path:c()+"404",render:e=>{e.innerHTML=S()}}];function E(e){$.forEach(({path:t,guard:r,redirect:o,render:s})=>{e.addRoute(t,n=>{if(r&&!r()){e.navigateTo(o);return}s(n,e)})})}const u=()=>"/front_5th_chapter1-1/";function I(e,{isHashMode:t=!1}={}){const r={};let o="";function s(){const d=u();let i="";return t?i=window.location.hash.replace(/^#/,"").replace(d,"")||"/":i=window.location.pathname.replace(d,"")||"/",i}function n(d){const i=r[d];i?i(e):r[404]&&r[404](e)}function a(){o=s(),n(o)}function b(d){const i=u()+d;t?window.location.hash=i:(history.pushState({},"",i),a())}function p(d,i){const h=u()+d;r[h]=i}function g(){o=s(),n(o),t&&window.addEventListener("hashchange",a),window.addEventListener("popstate",a)}return{addRoute:p,navigateTo:b,start:g,getCurrentPath:s}}function U(e=!1){const t=document.getElementById("root");if(!t)return;console.log("production");const r=I(t,{isHashMode:e});l.init(),l.subscribe(()=>{r.start()}),E(r),y(r),r.start()}U();
