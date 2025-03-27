@@ -29,7 +29,7 @@
           <li><a href="${i}/" class="${r("/")}">홈</a></li>
           <li><a href="${i}/profile" class=${r("/profile")}>프로필</a></li>
           <li>
-            ${t?'<a id="logout" href="/login" class="text-gray-600">로그아웃</a>':`<a href="${i}/login" class="text-gray-600">로그인</a>`}
+            ${t?`<a id="logout" href="${i}/login" class="text-gray-600">로그아웃</a>`:`<a href="${i}/login" class="text-gray-600">로그인</a>`}
           </li>
         </ul>
       </nav>
