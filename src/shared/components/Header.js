@@ -1,4 +1,5 @@
 import { authStore } from "../../features/auth";
+import { BASE_URL } from "../constants/constants";
 
 function Header(currentPath = "/") {
   const isLoggedIn = authStore.isLoggedIn();
@@ -11,13 +12,13 @@ function Header(currentPath = "/") {
       </header>
       <nav class="bg-white shadow-md p-2 sticky top-14">
         <ul class="flex justify-around">
-          <li><a href="/" class="${isActive("/")}">홈</a></li>
-          <li><a href="/profile" class=${isActive("/profile")}>프로필</a></li>
+          <li><a href="${BASE_URL}/" class="${isActive("/")}">홈</a></li>
+          <li><a href="${BASE_URL}/profile" class=${isActive("/profile")}>프로필</a></li>
           <li>
             ${
               isLoggedIn
-                ? '<a id="logout" href="/login" class="text-gray-600">로그아웃</a>'
-                : '<a href="/login" class="text-gray-600">로그인</a>'
+                ? `<a id="logout" href="${BASE_URL}/login" class="text-gray-600">로그아웃</a>`
+                : `<a href="${BASE_URL}/login" class="text-gray-600">로그인</a>`
             }
           </li>
         </ul>

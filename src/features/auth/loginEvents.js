@@ -1,4 +1,5 @@
 import { authStore } from "./auth";
+import { BASE_URL } from "../../shared/constants/constants";
 
 export function bindLoginEvent(container, router) {
   const loginForm = container.querySelector("#login-form");
@@ -18,6 +19,6 @@ export function bindLoginEvent(container, router) {
     };
 
     authStore.setUser(userData);
-    router.navigateTo("/");
+    router.navigateTo(`${BASE_URL}/`);
   });
 }

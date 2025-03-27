@@ -2,27 +2,28 @@ import LoginPage, { bindLoginEvent, authStore } from "../../features/auth";
 import ProfilePage, { bindProfileEvent } from "../../features/profile";
 import MainPage from "../../features/main";
 import ErrorPage from "../../features/error";
+import { BASE_URL } from "../../shared/constants/constants";
 
 export const routes = [
   {
-    path: "/",
+    path: `${BASE_URL}/`,
     render: (container) => {
       container.innerHTML = MainPage();
     },
   },
   {
-    path: "/login",
+    path: `${BASE_URL}/login`,
     guard: () => !authStore.isLoggedIn(),
-    redirect: "/",
+    redirect: `${BASE_URL}/`,
     render: (container, router) => {
       container.innerHTML = LoginPage();
       bindLoginEvent(container, router);
     },
   },
   {
-    path: "/profile",
+    path: `${BASE_URL}/profile`,
     guard: () => authStore.isLoggedIn(),
-    redirect: "/login",
+    redirect: `${BASE_URL}/login`,
     render: (container) => {
       container.innerHTML = ProfilePage("/profile");
       bindProfileEvent(container);
