@@ -29,7 +29,7 @@
           <li><a href="${a}/" class="${r("/")}">홈</a></li>
           <li><a href="${a}/profile" class=${r("/profile")}>프로필</a></li>
           <li>
-            ${t?'<a id="logout" href="/login" class="text-gray-600">로그아웃</a>':'<a href="/login" class="text-gray-600">로그인</a>'}
+            ${t?'<a id="logout" href="/login" class="text-gray-600">로그아웃</a>':`<a href="${a}/login" class="text-gray-600">로그인</a>`}
           </li>
         </ul>
       </nav>
@@ -103,7 +103,7 @@
       ${f()}
     </div>
   </div>
-`,L=()=>`
+`,$=()=>`
   <main class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full text-center" style="max-width: 480px">
       <h1 class="text-2xl font-bold text-blue-600 mb-4">항해플러스</h1>
@@ -117,4 +117,4 @@
       </a>
     </div>
   </main>
-`,$=[{path:`${a}/`,render:e=>{e.innerHTML=w()}},{path:`${a}/login`,guard:()=>!i.isLoggedIn(),redirect:`${a}/`,render:(e,t)=>{e.innerHTML=g(),h(e,t)}},{path:`${a}/profile`,guard:()=>i.isLoggedIn(),redirect:`${a}/login`,render:e=>{e.innerHTML=x("/profile"),y(e)}},{path:`${a}404`,render:e=>{e.innerHTML=L()}}];function S(e){$.forEach(({path:t,guard:r,redirect:o,render:s})=>{e.addRoute(t,n=>{if(r&&!r()){e.navigateTo(o);return}s(n,e)})})}function E(e,{isHashMode:t=!1}={}){const r={};let o="";function s(){return t?window.location.hash.replace(/^#/,"")||"/":window.location.pathname||"/"}function n(d){const u=r[d];u?u(e):r[404]&&r[404](e)}function l(){o=s(),n(o)}function m(d){t?window.location.hash=d:(history.pushState({},"",d),l())}function b(d,u){r[d]=u}function p(){o=s(),n(o),t&&window.addEventListener("hashchange",l),window.addEventListener("popstate",l)}return{addRoute:b,navigateTo:m,start:p,getCurrentPath:s}}function P(e=!1){const t=document.getElementById("root");if(!t)return;const r=E(t,{isHashMode:e});i.init(),i.subscribe(()=>{r.start()}),S(r),v(r),r.start()}P();
+`,L=[{path:`${a}/`,render:e=>{e.innerHTML=w()}},{path:`${a}/login`,guard:()=>!i.isLoggedIn(),redirect:`${a}/`,render:(e,t)=>{e.innerHTML=g(),h(e,t)}},{path:`${a}/profile`,guard:()=>i.isLoggedIn(),redirect:`${a}/login`,render:e=>{e.innerHTML=x("/profile"),y(e)}},{path:`${a}404`,render:e=>{e.innerHTML=$()}}];function S(e){L.forEach(({path:t,guard:r,redirect:o,render:s})=>{e.addRoute(t,n=>{if(r&&!r()){e.navigateTo(o);return}s(n,e)})})}function E(e,{isHashMode:t=!1}={}){const r={};let o="";function s(){return t?window.location.hash.replace(/^#/,"")||"/":window.location.pathname||"/"}function n(d){const u=r[d];u?u(e):r[404]&&r[404](e)}function l(){o=s(),n(o)}function m(d){t?window.location.hash=d:(history.pushState({},"",d),l())}function b(d,u){r[d]=u}function p(){o=s(),n(o),t&&window.addEventListener("hashchange",l),window.addEventListener("popstate",l)}return{addRoute:b,navigateTo:m,start:p,getCurrentPath:s}}function P(e=!1){const t=document.getElementById("root");if(!t)return;const r=E(t,{isHashMode:e});i.init(),i.subscribe(()=>{r.start()}),S(r),v(r),r.start()}P();
